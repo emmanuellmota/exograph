@@ -5,3 +5,4 @@ node_modules
 Session.vim*
 tags
 *.swp
+exograph-self-installer.sh

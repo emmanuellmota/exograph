@@ -134,12 +134,18 @@ toml = { version = "0.8.22", features = ["parse"] }
 
 # reduce binary size, does not affect stack traces
 [profile.dev]
-debug = 1
+debug = 0  # Sem debug info para economizar memória
+opt-level = 0  # Sem otimizações para build mais rápido e menos memória
+codegen-units = 256  # Mais unidades = menos memória por unidade
+incremental = true  # Build incremental para economizar tempo e memória
+overflow-checks = false  # Desabilita verificações para economizar memória
 
 [profile.release]
-lto = true
-codegen-units = 1
+lto = "thin"  # LTO thin ao invés de full para usar menos memória
+codegen-units = 16  # Mais unidades que o padrão (1) para usar menos memória
 strip = true
+incremental = false
+overflow-checks = false
 
 [profile.release.package.server-cf-worker]
 opt-level = "s" # optimize for size in release builds
